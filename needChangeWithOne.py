@@ -26,7 +26,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     # Modify this to alter the denominations of coins
-    coins = [1, 6, 9, 20]
+    coins = [3, 5]
 
     if len(sys.argv) != 2:
         usage()

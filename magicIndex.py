@@ -1,10 +1,13 @@
-def findDex(arr):
-    for i in range(0, len(arr)):
-        if (arr[i] > i):
-            return False
-        elif (arr[i] == i):
-            return True
-    return False
+import math
 
-a = [0, 1, 2, 3, 7, 9, 12, 15, 18]
-print(findDex(a))
+def findDex(arr, startDex, endDex):
+    midDex = int(math.ceil(startDex + endDex) / 2)
+    if startDex > endDex: return -1
+    if arr[midDex] == midDex: return midDex
+    if arr[midDex] < midDex:
+        return findDex(arr, midDex + 1, endDex)
+    if arr[midDex] > midDex:
+        return findDex(arr, startDex, midDex - 1)
+
+a = [-1, 0, 0, 0, 3]
+print(findDex(a, 0, len(a) - 1))
