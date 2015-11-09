@@ -35,7 +35,7 @@ def nextPermutation(string):
     string = ''.join(arr)
     return string
 
-a = 'ABCDD'
+a = input()
 while (True):
     print(a)
     a = nextPermutation(a)
