@@ -37,7 +37,9 @@ def nextPermutation(string):
 
 a = input()
 while (True):
-    print(a)
+    # print(a)
     a = nextPermutation(a)
-    if not a:
-        break
+    print(a)
+    break
+    # if not a:
+        # break

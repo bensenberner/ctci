@@ -13,7 +13,7 @@ def validate(string):
 
     return True if not stack else False
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     a = "{}()[])"
     b = "{[(])}"
     c = "{[()]}"
