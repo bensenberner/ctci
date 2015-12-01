@@ -36,8 +36,6 @@ class Trie():
                 return False
         return root.leaf
 
-
-
 t = Trie()
 t.insert("woi", "nice", 'w')
-print(t.search('w'))
+print(t.search('w*'))
