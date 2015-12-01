@@ -1,5 +1,5 @@
 def lcs(string1, string2, m, n):
-    L = [[(0, '')]*(m+1)]*(n+1)
+    L = [[(0, '') for x in range(m+1)] for y in range(n+1)]
     print(L)
     result = ''
     for i in range(0, m):
