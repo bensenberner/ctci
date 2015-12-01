@@ -1,4 +1,3 @@
-END = '_end_'
 ALPHABET_SIZE = 26
 
 class Node():
