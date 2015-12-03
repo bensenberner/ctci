@@ -6,7 +6,7 @@ def solve(grid):
     if i is None:
         return True
     # try every number
-    for possNum in range(MAX_NUM):
+    for possNum in range(1, MAX_NUM + 1):
         if isValid(grid, i, j, possNum):
             grid[i][j] = possNum
             if solve(grid):
