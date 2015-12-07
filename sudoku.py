@@ -55,6 +55,9 @@ def main():
             [1, 3, None, None, None, None, 2, 5, None],
             [None, None, None, None, None, None, None, 7, 4],
             [None, None, 5, 2, None, 6, 3, None, None]]
+    for row in grid:
+        print(row)
+    print('\n')
     if solve(grid):
         for row in grid:
             print(row)
