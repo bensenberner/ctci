@@ -25,7 +25,7 @@ class BinaryTree():
             tree = BinaryTree(newNode)
             tree.right = self.right
             self.right = tree
-        
+
     def insertLeft(self,newNode):
         if self.left == None:
             self.left = BinaryTree(newNode)
@@ -40,7 +40,7 @@ def printTree(tree):
             printTree(tree.getLeftChild())
             print(tree.getNodeValue())
             printTree(tree.getRightChild())
-            
+
 
 
 # test tree
@@ -51,4 +51,4 @@ def testTree():
     myTree.insertRight("Tony")
     myTree.insertRight("Steven")
     printTree(myTree)
-        
+
