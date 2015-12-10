@@ -1,20 +1,24 @@
 from copy import deepcopy
 
 def makeSets(arr):
-    # if I did this in a strongly typed language then I would have
-    # to make the size of sets n(n+1)/2
+    arr = sorted(arr)
+    # will contain all subsets. eventually grows to size 2^n
     sets = [[]]
-    for x in arr:
-        for subset in sets:
-            newSet = deepcopy(subset)
-            print(subset)
-            newSet.append(x)
-            sets = newSet + sets
-            # newSet = subset + [x]
-            # sets += [newSet]
+    for num in arr:
+        # lock the length before we start growing sets
+        subsetLen = len(sets)
+        for i in range(subsetLen):
+            newSet = sets[i] + [num]
+
+            # since it's a sorted list, we can check for duplicate lists
+            sets.append(newSet) if newSet not in sets else None
 
     return sets
 
+def findSubsetSums(arr, target):
+    powerset = makeSets(arr)
+    return [subset for subset in powerset if sum(subset) == target]
+
 if __name__ == "__main__":
-    a = [2, 4, 1, 3]
-    print(makeSets(a))
+    a = [-1, 2, 3, 4, 6, -3, 6, -8]
+    print(findSubsetSums(a, 5))
