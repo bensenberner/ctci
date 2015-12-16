@@ -13,7 +13,8 @@ def maxNumCans(sizes, prices, targetAmount):
         dp.append(minAmount)
         i += 1
         amount = minAmount
-    return i - 1
+
+    return i - 2 if amount > targetAmount else i - 1
 
 def minCostCombo(sizes, prices, n):
     dp = [0] + [float('inf')] * (n - 1)
@@ -28,11 +29,11 @@ def minCostCombo(sizes, prices, n):
     return combos[-1]
 
 
-targetAmount = 75726
-targetPrice = 42069.69
+targetAmount = 100
+targetPrice = 52.8
 
-print("Maximum number of sodas that you can buy with $42069.69 is " + \
-        str(maxNumCans(sizes, prices, targetPrice)))
+print("Maximum number of sodas that you can buy with " + str(targetPrice) + \
+        " is " + str(maxNumCans(sizes, prices, targetPrice)))
 
 print("Minimum cost for buying " \
         + str(targetAmount) + " cans is " + \
