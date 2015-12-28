@@ -2,7 +2,7 @@ d = {
         '0': ['a', 'b', 'c'],
         '1': ['d', 'e', 'f'],
         '2': ['g', 'h', 'i'],
-        }
+}
 
 def enumFingers(inputString, currString, index, memo):
     if len(currString) == len(inputString):
@@ -13,7 +13,7 @@ def enumFingers(inputString, currString, index, memo):
             enumFingers(inputString, currString + possibleKey, index + 1, memo)
 
 def main():
-    inputstring = '00'
+    inputstring = '01'
     memo = []
     enumFingers(inputstring, '', 0, memo)
     print(memo)
