@@ -1,8 +1,10 @@
 class Node():
+
     def __init__(self, val):
         self.val = val
         self.nextNode = None
         self.prevNode = None
+
 class LinkedList():
 
     def __init__(self):
@@ -46,10 +48,36 @@ class LinkedList():
             print(node.val)
             node = node.prevNode if rev else node.nextNode
 
+    def exists(self, node):
+        curr = self.head
+        while curr:
+            if node.val == curr.val:
+                return True
+            curr = curr.nextNode
+
+        return False
+
+    def reverseList(self):
+        curr = self.head
+        while curr:
+            tmp = curr.prevNode
+            curr.prevNode = curr.nextNode
+            curr.nextNode = tmp
+            curr = curr.prevNode
+
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+
 l = LinkedList()
 l.insertFront(Node(4))
 l.insertFront(Node(5))
 l.insertFront(Node(7))
 l.insertFront(Node(9))
+l.printList()
+# l.printList(rev=True)
+print('reversed!')
+l.reverseList()
 l.printList()
 l.printList(rev=True)
