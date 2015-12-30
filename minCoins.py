@@ -11,7 +11,7 @@ def minCoins(coinArr, n):
 
 def main():
     coins = [6, 9, 20]
-    n = 41
+    n = 7
     print(minCoins(coins, n))
 
 main()

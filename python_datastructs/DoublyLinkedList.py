@@ -72,12 +72,27 @@ class LinkedList():
 
 l = LinkedList()
 l.insertFront(Node(4))
+l.insertFront(Node(4))
+l.insertFront(Node(4))
 l.insertFront(Node(5))
 l.insertFront(Node(7))
 l.insertFront(Node(9))
 l.printList()
-# l.printList(rev=True)
-print('reversed!')
 l.reverseList()
-l.printList()
-l.printList(rev=True)
+
+def makeListUnique(linkedlist):
+    seen = set()
+    duplicates = set()
+    node = linkedlist.head
+    while (node):
+        if node.val in seen:
+            duplicates.add(node.val)
+        seen.add(node.val)
+        node = node.nextNode
+
+    node = linkedlist.head
+    while (node):
+        temp = node.nextNode
+        if node.val in duplicates:
+            linkedlist.remove(node)
+        node = temp
