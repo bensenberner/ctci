@@ -2,7 +2,7 @@ ALPHABET_SIZE = 26
 
 class Node():
     def __init__(self):
-        self.leaf = False
+        self.isLeaf = False
         self.nodes = {}
 
 class Trie():
@@ -16,9 +16,26 @@ class Trie():
                 if char not in root.nodes:
                     root.nodes[char] = Node()
                 root = root.nodes[char]
-            root.leaf = True
+            root.isLeaf = True
 
-    def search(self, word):
+    def insertList(self, words):
+        for word in words:
+            root = self.root
+            for char in word:
+                if char not in root.nodes:
+                    root.nodes[char] = Node()
+                root = root.nodes[char]
+            root.isLeaf = True
+
+    def validPrefix(self, word):
+        currNode = self.root
+        for char in word:
+            if char not in currNode.nodes:
+                return False
+            currNode = currNode.nodes[char]
+        return True
+
+    def contains(self, word):
         return self.search_recur(self.root, word)
 
     def search_recur(self, root, word):
@@ -34,8 +51,10 @@ class Trie():
                     if self.search_recur(root.nodes[index], word[1:]):
                         return True
                 return False
-        return root.leaf
+        return root.isLeaf
 
-t = Trie()
-t.insert("woi", "nice", 'w')
-print(t.search('w*'))
+if __name__ == '__main__':
+    t = Trie()
+    t.insert("woi", "nice", 'w')
+    print(t.contains('w*'))
+    print(t.validPrefix('w'))
