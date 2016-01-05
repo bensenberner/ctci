@@ -46,15 +46,16 @@ def isValidSquare(grid, rowStart, columnStart, num):
     return True
 
 def main():
-    grid = [[3, None, 6, 5, None, 8, 4, None, None],
-            [5, 2, None, None, None, None, None, None, None],
-            [None, 8, 7, None, None, None, None, 3, 1],
-            [None, None, 3, None, 1, None, None, 8, None],
-            [9, None, None, 8, 6, 3, None, None, 5],
-            [None, 5, None, None, 9, None, 6, None, None],
-            [1, 3, None, None, None, None, 2, 5, None],
-            [None, None, None, None, None, None, None, 7, 4],
-            [None, None, 5, 2, None, 6, 3, None, None]]
+    grid = [[None, None, None, None, None, None, None, None, 7],
+            [5, None, 1, None, 3, None, 4, None, 8],
+            [None, 9, 4, None, 1, None, 3, None, None],
+            [None, None, 7, None, None, 3, None, None, None],
+            [None, 2, 8, 9, None, 5, 7, 3, None],
+            [None, None, None, 1, None, None, 6, None, None],
+            [None, None, 5, None, 2, None, 8, 7, None],
+            [9, None, 2, None, 6, None, 5, None, 4],
+            [7, None, None, None, None, None, None, None, None]]
+
     for row in grid:
         print(row)
     print('\n')
