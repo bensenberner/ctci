@@ -2,7 +2,7 @@ morseDict = {'...': 'S', '.-.': 'R', '...--': '3', '.-..': 'L', '----.': '9', '-
 
 def morseTranslate(string):
     # all possible interpretations of the string
-    allInterps = []
+    allInterpretations = []
 
     for i in range(len(string)):
         # translate the beginning of the string
@@ -14,12 +14,12 @@ def morseTranslate(string):
         # get all suffices starting after i, the current index
         suffices = morseTranslate(string[i+1:])
         for suffix in suffices:
-            allInterps.append(prefix + suffix)
+            allInterpretations.append(prefix + suffix)
         # reached the end of the string, there are no suffices
         if not suffices:
-            allInterps.append(prefix)
+            allInterpretations.append(prefix)
 
-    return allInterps
+    return allInterpretations
 
 def main():
     testStrings = ['...--.-', '.-.-.', '---.-']
