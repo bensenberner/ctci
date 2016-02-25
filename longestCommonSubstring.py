@@ -12,4 +12,27 @@ def LCSubStr(str1, str2):
                 dp[i][j] = 0
     return res
 
-print(LCSubStr('abcdef', 'cde'))
+# print(LCSubStr('abcdef', 'cde'))
+
+def LCSubNaive(str1, str2):
+    maxStr = ''
+    for i in range(len(str1)):
+        for j in range(len(str2)):
+            if str1[i] == str2[j]:
+                commonStr = findCommonStringAtIndex(str1, str2, i, j)
+                if len(commonStr) > len(maxStr):
+                    maxStr = commonStr
+    return maxStr
+
+def findCommonStringAtIndex(str1, str2, i, j):
+    commonStr = ''
+    while i < len(str1) and j < len(str2):
+        if str1[i] != str2[j]:
+            break
+        commonStr += str1[i]
+        i += 1
+        j += 1
+
+    return commonStr
+
+print(LCSubNaive('aasdoijfasdklfajslkdfjaosidjfasiopefjaposijfalksdjfapsoiefjaslkdjfasefkljas;elfkjasl;efkajsdfjasioefjasiejfalksdjfaksjeflasekjfalskjfalksejfkasjdflaksjdflaksjefioajseflkajsbcdefg', 'lmncdefopgabaiosdjfoaisdlaksjdfklajsdklfjasdfasdfasiunfapseifnasoidfasdfjaoisejfpaoisejfpoisaejfapiejfapoisjefasoiefjalksdjfaoisejfj'))
