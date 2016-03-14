@@ -30,4 +30,7 @@ def interleavings(currStr, str1, str2, index1, index2, n, m):
 def main():
     str1 = 'ab'
     str2 = 'cd'
-    interleavings(str1, str2, str2, 0, 0, len(a), len(b))
+    interleavings(str1, str2, str2, 0, 0, len(str1), len(str2))
+
+if __name__ == "__main__":
+    main()
