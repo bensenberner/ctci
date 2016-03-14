@@ -1,4 +1,5 @@
 from python_datastructs import Trie
+from boggleBoardGenerator import generateBoardFullAlphabet
 
 def main():
     # build the trie
@@ -8,17 +9,23 @@ def main():
         trie = Trie.Trie()
         trie.insertList(wordSet)
 
-    letterGrid = "raneudo,"+\
-                 "alodrat,"+\
-                 "terilwe,"+\
-                 "amopuam,"+\
-                 "lemimye,"+\
-                 "seopnas,"+\
-                 "mesicae"
+    ### preloaded board
+    # letterGrid = "raneudo,"+\
+    #              "alodrat,"+\
+    #              "terilwe,"+\
+    #              "amopuam,"+\
+    #              "lemimye,"+\
+    #              "seopnas,"+\
+    #              "mesicae"
 
+    ### user-defined board
+    # print("Please enter comma separated lines of the grid:\n")
+    # letterGrid = input()
+
+    ### externally generated board
+    letterGrid = generateBoardFullAlphabet()
     grid = convertGrid(letterGrid)
     foundWords = set()
-
     solveBoggle(grid, trie, foundWords)
 
     longestWords = sorted(list(foundWords), reverse=True, key=len)
@@ -26,7 +33,8 @@ def main():
     # print results
     for line in grid:
         print(line)
-    print(longestWords)
+    for longWord in longestWords[:50]:
+        print(longWord)
 
 def convertGrid(letters):
     return [list(s) for s in letters.split(',')]
@@ -47,54 +55,17 @@ def exploreWord(i, j, grid, visited, trie, currWord, foundWords):
 
     visited[i][j] = True
 
-    # explore top left corner
-    if i > 0 and j > 0 and not visited[i-1][j-1]:
-        newWord = currWord + grid[i-1][j-1]
-        if trie.validPrefix(newWord):
-            exploreWord(i-1, j-1, grid, visited, trie, newWord, foundWords)
-
-    # explore top right corner
-    if i > 0 and j < n-1 and not visited[i-1][j+1]:
-        newWord = currWord + grid[i-1][j+1]
-        if trie.validPrefix(newWord):
-            exploreWord(i-1, j+1, grid, visited, trie, newWord, foundWords)
-
-    # explore bottom left corner
-    if i < m-1 and j > 0 and not visited[i+1][j-1]:
-        newWord = currWord + grid[i+1][j-1]
-        if trie.validPrefix(newWord):
-            exploreWord(i+1, j-1, grid, visited, trie, newWord, foundWords)
-
-    # explore bottom right corner
-    if i < m-1 and j < n-1 and not visited[i+1][j+1]:
-        newWord = currWord + grid[i+1][j+1]
-        if trie.validPrefix(newWord):
-            exploreWord(i+1, j+1, grid, visited, trie, newWord, foundWords)
-
-    # explore above
-    if i > 0 and not visited[i-1][j]:
-        newWord = currWord + grid[i-1][j]
-        if trie.validPrefix(newWord):
-            exploreWord(i-1, j, grid, visited, trie, newWord, foundWords)
-
-    # explore below
-    if i < m-1 and not visited[i+1][j]:
-        newWord = currWord + grid[i+1][j]
-        if trie.validPrefix(newWord):
-            exploreWord(i+1, j, grid, visited, trie, newWord, foundWords)
-
-    # explore left
-    if j > 0 and not visited[i][j-1]:
-        newWord = currWord + grid[i][j-1]
-        if trie.validPrefix(newWord):
-            exploreWord(i, j-1, grid, visited, trie, newWord, foundWords)
-
-    # explore right
-    if j < n-1 and not visited[i][j+1]:
-        newWord = currWord + grid[i][j+1]
-        if trie.validPrefix(newWord):
-            exploreWord(i, j+1, grid, visited, trie, newWord, foundWords)
+    for x in range(i-1, i+2):
+        for y in range(j-1, j+2):
+            if isValid(x, y, i, j, m, n) and not visited[x][y]:
+                newWord = currWord + grid[x][y]
+                if trie.validPrefix(newWord):
+                    exploreWord(x, y, grid, visited, trie, newWord, foundWords)
 
     visited[i][j] = False
 
-main()
+def isValid(x, y, i, j,  m, n):
+    return True if not (x == i and y == j) and x >= 0 and y >= 0 and x < m and y < n else False
+
+if __name__ == "__main__":
+    main()
