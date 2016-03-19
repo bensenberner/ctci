@@ -1,3 +1,7 @@
+'''
+Determine all possible pairs of numbers in a list that sum to some
+particular value.
+'''
 def findSumInArr(sumnum, arr):
     # logN operation
     arr = sorted(arr)
@@ -5,18 +9,16 @@ def findSumInArr(sumnum, arr):
     end = len(arr) - 1
     pairs = []
     # iterate through the list once
+    # TODO: implement logic for duplicate numbers
     while start < end:
         summation = arr[start] + arr[end]
         if summation == sumnum:
             pairs.append([arr[start],arr[end]])
             start += 1
-            continue
-        if summation < sumnum:
+        elif summation < sumnum:
             start += 1
-            continue
-        if summation > sumnum:
+        elif summation > sumnum:
             end -= 1
-            continue
 
     return pairs
 
