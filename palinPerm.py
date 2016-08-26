@@ -1,3 +1,6 @@
+'''
+Sees if the input string is a permutation of a palindrome
+'''
 def palPerm(string):
     strSet = {}
     oddChars = 0

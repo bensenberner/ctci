@@ -8,5 +8,5 @@ def generateBoardFullAlphabet():
         curRow = curRow[-1] + curRow[:-1]
     return board + curRow
 
-def generatorRandomBoard(m, n):
+# def generatorRandomBoard(m, n):
 

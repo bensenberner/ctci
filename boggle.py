@@ -8,22 +8,20 @@ def main():
         wordSet = set([word.lower()[:-1] for word in f.readlines()[:]])
         trie = Trie.Trie()
         trie.insertList(wordSet)
-
-    ### preloaded board
-    # letterGrid = "raneudo,"+\
-    #              "alodrat,"+\
-    #              "terilwe,"+\
-    #              "amopuam,"+\
-    #              "lemimye,"+\
-    #              "seopnas,"+\
-    #              "mesicae"
+    letterGrid = "raneudo,"+\
+                 "alodrat,"+\
+                 "terilwe,"+\
+                 "amopuam,"+\
+                 "lemimye,"+\
+                 "seopnas,"+\
+                 "mesicae"
 
     ### user-defined board
     # print("Please enter comma separated lines of the grid:\n")
     # letterGrid = input()
 
     ### externally generated board
-    letterGrid = generateBoardFullAlphabet()
+    # letterGrid = generateBoardFullAlphabet()
     grid = convertGrid(letterGrid)
     foundWords = set()
     solveBoggle(grid, trie, foundWords)

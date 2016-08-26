@@ -57,7 +57,8 @@ def main():
             [7, None, None, None, None, None, None, None, None]]
 
     for row in grid:
-        print(row)
+        # print(row)
+        print([e if e != None else 0 for e in row])
     print('\n')
     if solve(grid):
         for row in grid:

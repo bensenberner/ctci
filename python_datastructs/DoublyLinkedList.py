@@ -70,15 +70,16 @@ class LinkedList():
         self.tail = temp
 
 
-l = LinkedList()
-l.insertFront(Node(4))
-l.insertFront(Node(4))
-l.insertFront(Node(4))
-l.insertFront(Node(5))
-l.insertFront(Node(7))
-l.insertFront(Node(9))
-l.printList()
-l.reverseList()
+if __name__ == "__main__":
+    l = LinkedList()
+    l.insertFront(Node(4))
+    l.insertFront(Node(4))
+    l.insertFront(Node(4))
+    l.insertFront(Node(5))
+    l.insertFront(Node(7))
+    l.insertFront(Node(9))
+    l.printList()
+    l.reverseList()
 
 def makeListUnique(linkedlist):
     seen = set()

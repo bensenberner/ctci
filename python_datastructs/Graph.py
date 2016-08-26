@@ -14,3 +14,9 @@ class Graph:
     def add_undirected_edge(self, from_node, to_node, distance):
         self.add_edge(self, from_node, to_node, distance)
         self.add_edge(self, to_node, from_node, distance)
+
+class Node:
+    def __init__(self, name):
+        self.name = name
+
+
