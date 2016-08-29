@@ -1,1 +1,0 @@
-def printAllPerms(string, idx):
