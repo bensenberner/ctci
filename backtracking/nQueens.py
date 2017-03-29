@@ -6,10 +6,11 @@ of placing N queens
 from math import sqrt
 import itertools
 
-def printAllValid(arrangement, index, n):
+def printAllValid(arrangement, index, n, print_arragements=False):
     # we have reached the last position. Print the current arrangement
     if index == n:
-        # print(" ".join([str(x) for x in arrangement]))
+        if print_arrangements:
+            print(" ".join([str(x) for x in arrangement]))
         return
 
     for i in range(n):
