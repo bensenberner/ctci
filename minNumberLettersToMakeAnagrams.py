@@ -11,8 +11,8 @@ def minNumberAnagrams(s1, s2):
     return count
 
 def main():
-    s1 = 'abb'
-    s2 = 'bbz'
+    s1 = 'abd'
+    s2 = 'cbz'
     print(minNumberAnagrams(s1, s2))
 
 main()
