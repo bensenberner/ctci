@@ -11,6 +11,9 @@ each one representing a person who is alive
 go through every person, increment all years in the range in which they were alive
 go through the array, find the max
 n people, this will take O(102n) time
+
+solution 2:
+    the real way, read CTCI julian
 '''
 
 def mostLivingPeopleYearNaive(bdyears):
