@@ -1,28 +1,22 @@
+from boggle_board_generator import generateBoardFullAlphabet
+from boggle_board_generator import generateDefaultBoard
+from itertools import zip_longest
+from math import ceil, sqrt
 from python_datastructs import Trie
-from boggleBoardGenerator import generateBoardFullAlphabet
+import argparse
 
-def main():
+def main(letterGrid):
+    # TODO: pickle this
     # build the trie
     with open('/usr/share/dict/words', 'r') as f:
         # the [:-1] omits the newline chars
-        wordSet = set([word.lower()[:-1] for word in f.readlines()[:]])
+        wordSet = set([word.lower()[:-1] for word in f.readlines()[:] if
+            len(word) > 3])
         trie = Trie.Trie()
         trie.insertList(wordSet)
-    letterGrid = "raneudo,"+\
-                 "alodrat,"+\
-                 "terilwe,"+\
-                 "amopuam,"+\
-                 "lemimye,"+\
-                 "seopnas,"+\
-                 "mesicae"
 
-    ### user-defined board
-    # print("Please enter comma separated lines of the grid:\n")
-    # letterGrid = input()
-
-    ### externally generated board
-    # letterGrid = generateBoardFullAlphabet()
-    grid = convertGrid(letterGrid)
+    n = ceil(sqrt(len(letterGrid)))
+    grid = grouper(letterGrid, n)
     foundWords = set()
     solveBoggle(grid, trie, foundWords)
 
@@ -33,9 +27,6 @@ def main():
         print(line)
     for longWord in longestWords[:50]:
         print(longWord)
-
-def convertGrid(letters):
-    return [list(s) for s in letters.split(',')]
 
 def solveBoggle(grid, trie, foundWords):
     visited = [[False for x in range(len(grid[0]))] for y in range(len(grid))]
@@ -65,5 +56,15 @@ def exploreWord(i, j, grid, visited, trie, currWord, foundWords):
 def isValid(x, y, i, j,  m, n):
     return True if not (x == i and y == j) and x >= 0 and y >= 0 and x < m and y < n else False
 
+def grouper(iterable, n, fillvalue=None):
+    "Collect data into fixed-length chunks or blocks"
+    # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx"
+    args = [iter(iterable)] * n
+    return list(zip_longest(*args, fillvalue=fillvalue))
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='Enter a boggle board as one line')
+    parser.add_argument('--board', help='input a board (default: returns a premade board)')
+    args = parser.parse_args()
+    board = args.board if args.board else getDefaultBoard()
+    main(board)
