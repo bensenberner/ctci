@@ -5,9 +5,9 @@
 class BinaryTree():
 
     def __init__(self,rootid):
-      self.left = None
-      self.right = None
-      self.rootid = rootid
+        self.left = None
+        self.right = None
+        self.rootid = rootid
 
     def getLeftChild(self):
         return self.left
