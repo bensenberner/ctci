@@ -1,0 +1,2 @@
+you are given an infinitely long street with n cars going in the same direction with speeds randomly drawn independently from the same distribution.  What is the expected number of "clusters"?
+a cluster is a bottleneck

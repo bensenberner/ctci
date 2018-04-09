@@ -38,6 +38,18 @@ class Trie():
     def contains(self, word):
         return self.search_recur(self.root, word)
 
+    def partialMatch(self, word):
+        return self.partialRecur(self.root, word)
+
+    def partialRecur(self, node, word):
+        if node.isLeaf:
+            return True
+        if word:
+            for index in node.nodes:
+                if self.partialRecur(node.nodes[index], word[1:]):
+                    return True
+        return node.isLeaf
+
     def search_recur(self, root, word):
         if word:
             index = word[0]
