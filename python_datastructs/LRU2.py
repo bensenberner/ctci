@@ -1,18 +1,24 @@
 class Node():
-
     def __init__(self, val):
         self.val = val
-        self.prevNode = None
-        self.nextNode = None
+        self.prev = None
+        self.next = None
+
+class LinkedList():
+
+    def __init__(self):
+        self.head = None
+        self.tail = None
 
 class LRU():
 
     def __init__(self, capacity):
         self.capacity = capacity
-        self.head = None
-        self.tail = None
         self.d = {}
 
+    def put(self, key, val):
+        # imagine this is memoized
+        if len(d) == self.capacity:
 
     def getKey(self, key):
         if key in self.d:
