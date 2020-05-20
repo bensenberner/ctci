@@ -3,6 +3,9 @@ class Board:
         self.board = [[None for x in range(size)] for y in range(size)]
         self.fill_count = 0
 
+    def contains_position(self, i, j):
+        return i >= 0 and i < 3 and j >= 0 and j < 3
+
 def check_idxes(board, curr_char, idxes):
     for i, j in idxes:
         if board.board[i][j] != curr_char:
