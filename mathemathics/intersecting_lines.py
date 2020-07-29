@@ -1,4 +1,5 @@
 """
+CTCI medium #2
 Given two lines, each defined by a pair of points, determine their point of intersection, if any.
 
 Main considerations are around:
