@@ -42,7 +42,7 @@ class Point(NamedTuple):
     y: float
 
 
-class Line(object):
+class LineSegment(object):
     epsilon = 1e-9
 
     def __init__(self, p1, p2):
@@ -50,6 +50,20 @@ class Line(object):
         self.p2 = p2
         self._slope_or_none = self._compute_slope()
         self.y_or_x_intercept = self._compute_intercept()
+
+    def _contains_point_from_extended_line(self, point):
+        # given a point that falls on the line defined by the line segment,
+        # does this point fall within the line *intersection*
+        low_y, high_y = sorted([self.p1.y, self.p2.y])
+        low_x, high_x = sorted([self.p1.x, self.p2.x])
+        if self.is_vertical():
+            return low_y <= point.y <= high_y
+        if self.is_horizontal():
+            return low_x <= point.x <= high_x
+        return (
+            (low_y <= point.y <= high_y)
+            and (low_x <= point.x <= high_x)
+        )
 
     def _compute_slope(self) -> Optional[float]:
         denominator = self.p2.x - self.p1.x
@@ -76,7 +90,7 @@ class Line(object):
             raise ValueError("Cannot access slope of vertical line")
         return self._slope_or_none
 
-    def get_intersection_with(self, other: Line) -> Optional[Point]:
+    def get_intersection_with(self, other: LineSegment) -> Optional[Point]:
         # TODO: I feel like this code is a little messy. could we clean it up?
         # if the lines are parallel, return None (this includes if they are the same line). TODO: another case for this?
         # Otherwise, return the point of intersection.
@@ -101,6 +115,12 @@ class Line(object):
         # set up both equations as y - mx = b, then it's a system of linear equations where we solve for x and y
         a = np.array([[1, -self.slope], [1, -other.slope]])
         b = np.array([self.y_or_x_intercept, other.y_or_x_intercept])
-        point_as_arr = np.linalg.solve(a, b)
-        return Point(*point_as_arr)
-
+        intersection = Point(*np.linalg.solve(a, b))
+        return (
+            intersection
+            if (
+                self._contains_point_from_extended_line(intersection)
+                and other._contains_point_from_extended_line(intersection)
+            )
+            else None
+        )
