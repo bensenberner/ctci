@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from mathemathics.intersecting_lines import LineSegment, Point
+from moderate.intersection import LineSegment, Point
 
 
 class Test(TestCase):

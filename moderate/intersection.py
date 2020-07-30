@@ -36,6 +36,9 @@ from typing import NamedTuple, Optional
 
 import numpy as np
 
+__difficulty__ = 2
+__correctness__ = 4
+
 
 class Point(NamedTuple):
     x: float
@@ -61,8 +64,8 @@ class LineSegment(object):
         if self.is_horizontal():
             return low_x <= point.x <= high_x
         return (
-            (low_y <= point.y <= high_y)
-            and (low_x <= point.x <= high_x)
+                (low_y <= point.y <= high_y)
+                and (low_x <= point.x <= high_x)
         )
 
     def _compute_slope(self) -> Optional[float]:
@@ -119,8 +122,8 @@ class LineSegment(object):
         return (
             intersection
             if (
-                self._contains_point_from_extended_line(intersection)
-                and other._contains_point_from_extended_line(intersection)
+                    self._contains_point_from_extended_line(intersection)
+                    and other._contains_point_from_extended_line(intersection)
             )
             else None
         )
