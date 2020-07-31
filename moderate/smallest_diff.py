@@ -48,7 +48,9 @@ def binary_search_return_low_if_not_found(haystack, needle):
 def find_smallest_diff(l1, l2):
     """
     this runs in O((m + n)log(n)) time, where n is the length of the
-    smaller array
+    smaller array.
+    This is BETTER than the book recommended solution which is
+    O(mlog(m) + nlog(n))
     """
     small, large = (l1, l2) if len(l1) < len(l2) else (l2, l1)
     small.sort()
