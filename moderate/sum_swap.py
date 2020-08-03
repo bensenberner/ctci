@@ -27,27 +27,25 @@ but it has to be such that the 3 came from the second list.
 Okay so it seems like
 1) find the sums
 2) find the diff
-3) hash all the items in the arr1 (TODO: actually bigger list), call that first_set
+3) hash all the items in the arr1 (or rather, whichever is the bigger list)
 4) for element in arr2, if (diff - element) in first_set, return [diff - element, element]
 
 okay but I think the 4 is throwing me off because 4 = 2*2 = 2+2. so that could've come from other places
 
 arr1 = [1, 2, 5, 2, 9] = sum of 19
 arr2 = [1, 7, 5, 7, 9] = sum of 29
+
+actually need to look for (needle_element - sum_diff // 2) in haystack_arr
 """
 
 
 def sum_swap(arr1, arr2):
-    arr_1_is_smaller = len(arr1) < len(arr2)
-    small_arr, large_arr = (arr1, arr2) if arr_1_is_smaller else (arr2, arr1)
-    sum_diff = sum(small_arr) - sum(large_arr)
-    # better to iterate through a short list and do O(1) lookups
-    large_set = set(large_arr)
-    for small_arr_element in small_arr:
-        possible_large_arr_element = small_arr_element - sum_diff // 2
-        if possible_large_arr_element in large_set:
-            return (
-                [small_arr_element, possible_large_arr_element]
-                if arr_1_is_smaller
-                else [possible_large_arr_element, small_arr_element]
-            )
+    # first list should be smaller than larger list. better to iterate through a short list and do O(1) lookups
+    if len(arr1) > len(arr2):
+        return sum_swap(arr2, arr1)[::-1]
+    sum_diff = sum(arr1) - sum(arr2)
+    arr2_set = set(arr2)
+    for arr1_element in arr1:
+        possible_arr2_element = arr1_element - sum_diff // 2
+        if possible_arr2_element in arr2_set:
+            return [arr1_element, possible_arr2_element]
