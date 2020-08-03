@@ -29,6 +29,9 @@ class Test(TestCase):
         string = "j"
         self.assertTrue(matches(pattern, string))
 
+    def test_repeated_only_a(self):
+        self.assertFalse(matches("aa", "haho"))
+
     def test_no_match(self):
         pattern = "aababa"
         string = "catcatgocatgo"

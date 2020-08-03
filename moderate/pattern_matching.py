@@ -24,18 +24,17 @@ from collections import Counter
 
 def matches(pattern, value):
     pattern_char_counter = Counter(pattern)
-    for a_length in range(len(value) + 1):
-        b_length = (
-            int(
-                (len(value) - pattern_char_counter["a"] * a_length)
+    for candidate_a_len in range(len(value) + 1):
+        candidate_b_len = (
+            round(  # round() will take care of floating point trickiness
+                (len(value) - pattern_char_counter["a"] * candidate_a_len)
                 / pattern_char_counter["b"]
             )
-            if pattern_char_counter["b"] > 0
+            if pattern_char_counter["b"] != 0
             else 0
         )
-
-        total_a_len = pattern_char_counter["a"] * a_length
-        total_b_len = pattern_char_counter["b"] * b_length
+        total_a_len = pattern_char_counter["a"] * candidate_a_len
+        total_b_len = pattern_char_counter["b"] * candidate_b_len
         if total_a_len + total_b_len == len(value):
             a_strings = set()
             b_strings = set()
@@ -43,13 +42,13 @@ def matches(pattern, value):
             is_match = True
             for pattern_char in pattern:
                 is_a = pattern_char == "a"
-                curr_length = a_length if is_a else b_length
+                curr_length = candidate_a_len if is_a else candidate_b_len
                 set_to_which_to_add = a_strings if is_a else b_strings
                 set_to_which_to_add.add(
                     value[curr_value_idx : curr_value_idx + curr_length]
                 )
-                if len(a_strings) > 1 or len(b_strings) > 1:
-                    # the patterns were inconsistent
+                pattern_not_consistent = len(a_strings) > 1 or len(b_strings) > 1
+                if pattern_not_consistent:
                     is_match = False
                     break
                 curr_value_idx += curr_length
