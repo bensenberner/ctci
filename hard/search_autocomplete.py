@@ -55,3 +55,35 @@ char: str
 is_leaf: bool
 hot_degree: int
 """
+from typing import Dict
+
+
+class TrieNode:
+    def __init__(self, char, is_leaf, hot_degree):
+        self.char = char
+        self.is_leaf = is_leaf
+        self.hot_degree = hot_degree
+        self.children: Dict[str, TrieNode] = dict()
+
+
+class AutocompleteSystem:
+    def __init__(self, sentences, counts):
+        self.trie_root = TrieNode(
+            char="^",
+            is_leaf=False,
+            hot_degree=0  # TODO: will this introduce any weirdness
+        )
+        for sentence, count in zip(sentences, counts):
+            curr_node = self.trie_root
+            for character in sentence[:-1]:
+                if character in curr_node.children:
+                    new_node = curr_node.children[character]
+                    new_node.hot_degree += 1
+                else:
+                    new_node = TrieNode(char=character, is_leaf=False, hot_degree=1)
+                curr_node = new_node
+            # TODO: insert last character (is_leaf=True)
+
+
+    def input(self, char: str):
+        pass
