@@ -55,35 +55,111 @@ char: str
 is_leaf: bool
 hot_degree: int
 """
-from typing import Dict
+from operator import itemgetter
+from typing import Dict, List, Tuple
 
 
 class TrieNode:
+    START_SYMBOL = "^"
+
     def __init__(self, char, is_leaf, hot_degree):
-        self.char = char
+        self._char = char
         self.is_leaf = is_leaf
         self.hot_degree = hot_degree
         self.children: Dict[str, TrieNode] = dict()
 
+    @property
+    def is_root_node(self):
+        return self._char == self.START_SYMBOL
+
+    @property
+    def char(self):
+        if self.is_root_node:
+            raise ValueError("Cannot directly access root node")
+        return self._char
+
+    def __repr__(self):
+        return f"<char:{self._char}|is_leaf:{self.is_leaf}|deg:{self.hot_degree}>"
+
+    @classmethod
+    def create_root(cls):
+        return TrieNode(
+            char=cls.START_SYMBOL, is_leaf=False, hot_degree=0
+        )  # TODO: will this intro weirdness??
+
+    def insert_char(self, char, degree=1):
+        if char in self.children:
+            new_node = self.children[char]
+            new_node.hot_degree += degree
+        else:
+            new_node = TrieNode(char=char, is_leaf=False, hot_degree=degree)
+            self.children[char] = new_node
+        return new_node
+
+    def insert_full_string_with_count(self, string, degree):
+        """
+        :param string: a complete search query. It is assumed that this would have
+        ended with a '#' sign
+        :param degree: hot degree from the historical data
+        """
+        curr_node = self
+        for character in string[:-1]:
+            curr_node = curr_node.insert_char(character, degree)
+        last_char = string[-1]
+        last_node = curr_node.insert_char(last_char, degree)
+        last_node.is_leaf = True
+
+    def get_top_three_degree_strings(self):
+        all_strs_to_counts: List[Tuple[str, int]] = []
+        curr_str_list = []
+        stack = [self]
+
+        def dfs():
+            if not stack:
+                return
+            node = stack.pop()
+            if not node.is_root_node:
+                curr_str_list.append(node.char)
+            if node.is_leaf:
+                all_strs_to_counts.append(("".join(curr_str_list), node.hot_degree))
+            for child in node.children.values():
+                stack.append(child)
+                dfs()
+                curr_str_list.pop()
+
+        dfs()
+        all_strs_to_counts.sort(key=itemgetter(0))
+        all_strs_to_counts.sort(key=itemgetter(1), reverse=True)
+        return [s for s, count in all_strs_to_counts][:3]
+
 
 class AutocompleteSystem:
-    def __init__(self, sentences, counts):
-        self.trie_root = TrieNode(
-            char="^",
-            is_leaf=False,
-            hot_degree=0  # TODO: will this introduce any weirdness
-        )
-        for sentence, count in zip(sentences, counts):
-            curr_node = self.trie_root
-            for character in sentence[:-1]:
-                if character in curr_node.children:
-                    new_node = curr_node.children[character]
-                    new_node.hot_degree += 1
-                else:
-                    new_node = TrieNode(char=character, is_leaf=False, hot_degree=1)
-                curr_node = new_node
-            # TODO: insert last character (is_leaf=True)
+    EOL_CHAR = "#"
 
+    def __init__(self, sentences, counts):
+        self.trie_root = TrieNode.create_root()
+        self.query_node = self.trie_root
+        self.previous_query_inputs = []
+
+        for sentence, count in zip(sentences, counts):
+            self.trie_root.insert_full_string_with_count(sentence, count)
+
+    def get_autocomplete_results(self):
+        autocomplete_suffixes = self.query_node.get_top_three_degree_strings()
+        prefix = "".join(self.previous_query_inputs)
+        return [prefix + suffix for suffix in autocomplete_suffixes]
 
     def input(self, char: str):
-        pass
+        if char == self.EOL_CHAR:
+            self.query_node.is_leaf = True
+            # reset things back to the beginning
+            self.query_node = self.trie_root
+            self.previous_query_inputs = []
+            # TODO: what if I ended up searching an identical string as before?
+            return []
+        else:
+            new_node = self.query_node.insert_char(char, 1)
+            self.query_node = new_node
+            results = self.get_autocomplete_results()
+            self.previous_query_inputs.append(char)
+            return results
