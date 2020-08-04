@@ -103,11 +103,9 @@ class TrieNode:
         :param degree: hot degree from the historical data
         """
         curr_node = self
-        for character in string[:-1]:
+        for character in string:
             curr_node = curr_node.insert_char(character, degree)
-        last_char = string[-1]
-        last_node = curr_node.insert_char(last_char, degree)
-        last_node.is_leaf = True
+        curr_node.is_leaf = True
 
     def get_top_three_degree_strings(self):
         all_strs_to_counts: List[Tuple[str, int]] = []
