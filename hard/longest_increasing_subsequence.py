@@ -9,6 +9,11 @@ class SubSeq(NamedTuple):
 
 
 def longest_increasing_subsequence_len(arr: List[int]):
+    """
+    Find the longest strictly increasing subsequence from an array. The actual subsequence, not just the length.
+    O(n^2) time
+    O(n) space!
+    """
     n = len(arr)
     if n == 0:
         return []
