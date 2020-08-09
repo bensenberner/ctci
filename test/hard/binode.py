@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
             left_node=BiNode(val=5, left_node=BiNode(val=2), right_node=BiNode(val=6)),
             right_node=BiNode(
                 val=12, left_node=BiNode(val=10), right_node=BiNode(val=15)
-            )
+            ),
         )
         head, tail = root.convert_to_linkedlist()
 
