@@ -1,9 +1,10 @@
 def multiply(num1, num2):
-    bignum, smallnum = num1, num2 if num1 > num2 else num2, num1
+    bignum, smallnum = (num1, num2) if num1 > num2 else (num2, num1)
     res = 0
-    for i in range(smallNum):
+    for i in range(smallnum):
         res += bignum
     return res
+
 
 def subtract(num1, num2):
     res = 0
@@ -20,6 +21,7 @@ def subtract(num1, num2):
     for i in range(smallnum, bignum):
         res += 1
     return res
+
 
 def divide(num1, num2):
     # assume that num1 > num2 and that num1 % num2 == 0.
