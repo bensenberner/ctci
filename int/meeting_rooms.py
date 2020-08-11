@@ -40,9 +40,11 @@ Runtime: O(nlogn + n^2)
 Space: O(n)
 we can do better. We don't need to iterate through all the meetings.
 
-Approach 2: Optimized
+Approach 2: Optimized (TODO)
 Created a min heap in which the key of the heap represents the end time of a meeting
 """
+from __future__ import annotations
+
 import heapq
 import operator
 from collections import defaultdict
