@@ -7,7 +7,3 @@ class Test(unittest.TestCase):
     def test(self):
         expected = ["abc", "acb", "bac", "bca", "cab", "cba"]
         self.assertCountEqual(expected, perms_without_dups("abc"))
-
-
-if __name__ == "__main__":
-    unittest.main()
