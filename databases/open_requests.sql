@@ -2,20 +2,25 @@
 -- get the building associated with each apt
 -- do a group by in which we group by building and count number of apts
 
-SELECT
-	BuildingID,
-	COUNT(BuildingID)
-FROM 
+select
+    buildingname, num_reqs
+from
+    buildings inner join (
+select
+	buildingid,
+	count(requestid) as num_reqs
+from
 	Apartments
-	INNER JOIN (
-		SELECT
-			AptID
-		FROM
+	left join (
+		select
+			AptID, requestid
+		from
 			Requests
-		WHERE
+		where
 			Status='Open'
 	) as request_apt
-	ON Apartments.AptID = request_apt.AptID
-GROUP BY
-	BuildingID
+	using (aptid)
+group by
+    buildingid
+) B using (buildingid)
 ;

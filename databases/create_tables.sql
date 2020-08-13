@@ -38,15 +38,17 @@ CREATE TABLE IF NOT EXISTS Tenants (
 );
 
 INSERT INTO Buildings VALUES
-(11, 1, 'Cloudy Building', '666 Devil Street'),
-(12, 1, 'Wow Building', '111 Bevil Street');
+(11, 1, 'Demonic Hellscape', '666 Devil Street'),
+(12, 1, 'House of Leaves', '4296 Darby Blvd'),
+(13, 1, 'Mansion de Dio', '360 World Ave, Cairo');
 INSERT INTO Complexes VALUES 
 (1, 'Sunny Homes'),
 (2, 'Ocean Hills');
 INSERT INTO Apartments VALUES
 (1, '1A', 11),
 (2, '1B', 11),
-(3, '1C', 12);
+(3, '1C', 12),
+(4, '1D', 13);
 INSERT INTO AptTenants VALUES
 (1, 1),
 (1, 2),
@@ -58,7 +60,9 @@ INSERT INTO AptTenants VALUES
 INSERT INTO Requests VALUES 
 (1, 'Open', 1, 'Ganj'),
 (2, 'Open', 2, 'Blaze'),
-(3, 'Open', 3, 'Juice');
+(3, 'Open', 3, 'Juice'),
+(4, 'Closed', 2, 'Toilet'),
+(5, 'Open', 1, 'Drain');
 INSERT INTO Tenants VALUES
 (1, 'Blaze Juicer'),
 (2, 'Ganj Lighter'),
