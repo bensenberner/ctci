@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS Tenants (
 INSERT INTO Buildings VALUES
 (11, 1, 'Demonic Hellscape', '666 Devil Street'),
 (12, 1, 'House of Leaves', '4296 Darby Blvd'),
-(13, 1, 'Mansion de Dio', '360 World Ave, Cairo');
+(13, 1, 'Mansion de Dio', '360 World Ave, Cairo'),
+(14, 2, 'Club Z', '3920 Alla Road');
 INSERT INTO Complexes VALUES 
 (1, 'Sunny Homes'),
 (2, 'Ocean Hills');
