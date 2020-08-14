@@ -1,6 +1,7 @@
 from string import ascii_lowercase
 import random
 
+
 def findMostUsedLetter(letter_dict):
     max_letter = ""
     max_count = 0
@@ -11,16 +12,18 @@ def findMostUsedLetter(letter_dict):
             max_count = wordcount
     return max_letter
 
+
 def prune_letter_dict(letter, l, correct):
     if correct:
         for letter in l:
-             l[letter] = set([word for word in l[letter] if letter in word])
+            l[letter] = set([word for word in l[letter] if letter in word])
     else:
-        l.pop(letter)
+        l._pop(letter)
         for letter in l:
-             l[letter] = set([word for word in l[letter] if not letter in word])
+            l[letter] = set([word for word in l[letter] if not letter in word])
 
-with open('/usr/share/dict/words', 'r') as f:
+
+with open("/usr/share/dict/words", "r") as f:
     # the [:-1] omits the newline chars
     letter_dict = {letter: set() for letter in ascii_lowercase}
     for word in f.readlines():

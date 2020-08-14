@@ -1,4 +1,4 @@
-'''
+"""
 given an arithmetic expression consisting of positive integers, +, -, *, /, no
 parentheses, compute the result
 
@@ -7,30 +7,32 @@ then I would go through the stack again and consolidating the + and -
 expressions. Runtime: O(2n), space O(n)
 
 question for interviewer: should I assume the expression is valid??
-'''
+"""
 
 # TODO: figure out all the stuff w.r.t. the push / pop / append order
+
 
 def evaluateExpression(exp):
     exp = exp[::-1]
     stack = []
     n = len(exp)
-    if n == 0: return 0
+    if n == 0:
+        return 0
     higherOrderOps = set(["*", "/"])
 
     # every even index is an operator, every odd is an operand
     # this first loop is to evaluate the higherOrderOps
-    while (len(exp) > 0):
-        currNum = exp.pop()
+    while len(exp) > 0:
+        currNum = exp._pop()
 
         # if there's still some left in the stack, then we can make things work
         # we are assuming that exp[0] is an operator and exp[1] is an operand
-        if (len(exp) > 0):
+        if len(exp) > 0:
             # evaluate higherOrderOp chain (apply to currNum)
-            if (exp[-1] in higherOrderOps):
-                while (len(exp) > 0 and exp[-1] in higherOrderOps):
-                    operator = exp.pop()
-                    operand = exp.pop()
+            if exp[-1] in higherOrderOps:
+                while len(exp) > 0 and exp[-1] in higherOrderOps:
+                    operator = exp._pop()
+                    operand = exp._pop()
                     currNum = calculate(currNum, operator, operand)
                 stack.append("+")
                 stack.append(currNum)
@@ -38,7 +40,7 @@ def evaluateExpression(exp):
             # simply append the lowerOrderOp
             else:
                 stack.append(currNum)
-                stack.append(exp.pop())
+                stack.append(exp._pop())
         else:
             stack.append(currNum)
 
@@ -51,12 +53,13 @@ def evaluateExpression(exp):
     else:
         return 0
 
-    while (len(stack) > 0):
+    while len(stack) > 0:
         operator = stack.pop()
         operand = stack.pop()
         finalNum = calculate(finalNum, operator, operand)
 
     return finalNum
+
 
 def calculate(op1, operator, op2):
     if operator == "*":
@@ -69,6 +72,7 @@ def calculate(op1, operator, op2):
         return op1 - op2
     else:
         return 0
+
 
 if __name__ == "__main__":
     # ordinarily this would probably be a string and I'd have to do some
