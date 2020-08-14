@@ -1,10 +1,9 @@
 import unittest
 
-
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)
+from hard.longest_consecutive_sequence import longest_consecutive_seq
 
 
-if __name__ == '__main__':
-    unittest.main()
+class Test(unittest.TestCase):
+    def test(self):
+        arr = [100, 4, 200, 1, 3, 2]
+        self.assertEqual(4, longest_consecutive_seq(arr))
