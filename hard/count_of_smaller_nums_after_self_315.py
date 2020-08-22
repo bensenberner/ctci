@@ -48,7 +48,7 @@ class MaxHeap:
         return position
 
 
-def countSmaller(nums):
+def countSmallerHeap(nums):
     n = len(nums)
     if n == 0:
         return []
@@ -61,3 +61,13 @@ def countSmaller(nums):
         result.appendleft(num_elements_less_than)
         heap.push(nums[idx])
     return list(result)
+
+
+def countSmaller(nums):
+    n = len(nums)
+    counts = [0 for _ in range(n)]
+    for i in range(n):
+        for j in range(i + 1, n):
+            if nums[j] < nums[i]:
+                counts[i] += 1
+    return counts

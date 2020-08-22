@@ -13,3 +13,8 @@ class MyTestCase(unittest.TestCase):
         nums = [-1, -1]
         expected = [0, 0]
         self.assertEqual(expected, countSmaller(nums))
+
+    def test_201(self):
+        nums = [2, 0, 1]
+        expected = [2, 0, 0]
+        self.assertEqual(expected, countSmaller(nums))
