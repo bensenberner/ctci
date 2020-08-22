@@ -1,10 +1,17 @@
 import unittest
 
-
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)
+from hard.longest_word import longest_word
 
 
-if __name__ == '__main__':
+class Test(unittest.TestCase):
+    def test(self):
+        words = ["banana", "cat", "dog", "nana", "walk", "walker", "dogwalker"]
+        self.assertEqual("dogwalker", longest_word(words))
+
+    def test_no_word_works(self):
+        words = ["cat", "dog", "hotdog"]
+        self.assertEqual("", longest_word(words))
+
+
+if __name__ == "__main__":
     unittest.main()
