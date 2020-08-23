@@ -18,12 +18,15 @@ from typing import Tuple, List, Union
 
 words = {"looked", "just", "like", "her", "brother"}
 
+Respacing = List[str]
+NumUnrecognizedChars = int
+
 
 def respace(string):
     n = len(string)
 
     @lru_cache(maxsize=None)
-    def _respace(start_idx) -> Tuple[List[str], Union[int, float]]:
+    def _respace(start_idx) -> Tuple[Respacing, NumUnrecognizedChars]:
         full_string = string[start_idx:]
         best_respacing = [full_string]
         if full_string in words:
