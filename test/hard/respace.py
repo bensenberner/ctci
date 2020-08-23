@@ -1,10 +1,17 @@
 import unittest
 
-
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)
+from hard.respace import respace
 
 
-if __name__ == '__main__':
-    unittest.main()
+class Test(unittest.TestCase):
+    def test_ctci(self):
+        self.assertEqual(
+            ["jess", "looked", "just", "like", "tim", "her", "brother"],
+            respace("jesslookedjustliketimherbrother"),
+        )
+
+    def test1(self):
+        self.assertEqual(["tim", "her"], respace("timher"))
+
+    def test2(self):
+        self.assertEqual(["her", "lame", "brother"], respace("herlamebrother"))
