@@ -12,4 +12,4 @@ class TreeNode:
         self.right = right
 
     def __repr__(self):
-        return f"L:{self.left.val if self.left else None}|self:{self.val}|R:{self.right.val if self.right else None}"
+        return f"<L:{self.left.val if self.left else None}|self:{self.val}|R:{self.right.val if self.right else None}>"
