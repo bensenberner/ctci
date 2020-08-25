@@ -23,25 +23,26 @@ from typing import List, Dict, Iterable
 class TrieNode:
     START_SYMBOL = "^"
 
-    def __init__(self, char, is_leaf=False):
-        self.char = char
+    def __init__(self, string, is_leaf=False):
+        self.string = string
         self.is_leaf = is_leaf
         self.children: Dict[str, TrieNode] = dict()
 
     def __repr__(self):
-        return f"<{self.char}|leaf:{self.is_leaf}>"
+        return f"<{self.string}|leaf:{self.is_leaf}>"
 
     def get_or_create_child(self, char: str):
         if char in self.children:
             return self.children[char]
         else:
-            child_node = TrieNode(char=char)
+            string = self.string + char if self.string is not self.START_SYMBOL else char
+            child_node = TrieNode(string=string)
             self.children[char] = child_node
             return child_node
 
     @classmethod
     def create_from_words(cls, words: Iterable[str]):
-        root = TrieNode(char=cls.START_SYMBOL)
+        root = TrieNode(string=cls.START_SYMBOL)
         for word in words:
             curr_node = root
             for char in word:
@@ -60,16 +61,15 @@ class TrieNode:
             curr = curr.children.get(char)
         return curr.is_leaf
 
-    @lru_cache
     def get_all_prefix_words(self, string):
         result = []
         curr = self
         for idx, char in enumerate(string):
             if curr.is_leaf:
-                result.append(string[:idx])
+                result.append(curr.string)
             if char not in curr.children:
                 break
-            curr = curr.children[char]
+            curr = curr.children.get(char)
         return result
 
 
@@ -86,8 +86,8 @@ def longest_word_trie(words: List[str]):
 
     def dfs():
         curr_node = stack.pop()
-        if curr_node.char is not curr_node.START_SYMBOL:
-            curr_word_list.append(curr_node.char)
+        if curr_node.string is not curr_node.START_SYMBOL:
+            curr_word_list.append(curr_node.string)
         if curr_node.is_leaf:
             print(curr_word_list)
         for child in curr_node.children.values():
@@ -118,7 +118,7 @@ def longest_word(words):
 
     for word in words:
         if len(word) > len(max_len_word) and is_composed_of_other_words(
-            word, performed_partition=False
+                word, performed_partition=False
         ):
             max_len_word = word
     return max_len_word
