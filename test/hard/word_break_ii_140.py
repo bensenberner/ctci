@@ -7,8 +7,8 @@ class Test(unittest.TestCase):
     def test(self):
         s = "catsanddog"
         word_dict = ["cat", "cats", "and", "sand", "dog"]
-        expected = {"cats and dog", "cat sand dog"}
-        self.assertEqual(expected, wordBreak(s, word_dict))
+        expected = ["cats and dog", "cat sand dog"]
+        self.assertCountEqual(expected, wordBreak(s, word_dict))
 
     def test_dumb(self):
         self.assertEqual([], wordBreak("", ["a", "b", "c'"]))

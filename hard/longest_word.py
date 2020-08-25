@@ -17,7 +17,7 @@ If I added them all to a set, that would also take O(mn) time.
 
 """
 from functools import lru_cache
-from typing import List, Dict
+from typing import List, Dict, Iterable
 
 
 class TrieNode:
@@ -40,7 +40,7 @@ class TrieNode:
             return child_node
 
     @classmethod
-    def create_from_words(cls, words: List[str]):
+    def create_from_words(cls, words: Iterable[str]):
         root = TrieNode(char=cls.START_SYMBOL)
         for word in words:
             curr_node = root
@@ -48,6 +48,29 @@ class TrieNode:
                 curr_node = curr_node.get_or_create_child(char)
             curr_node.is_leaf = True
         return root
+
+    @lru_cache
+    def contains_prefix(self, prefix):
+        curr = self
+        for char in prefix:
+            if curr.is_leaf:
+                return True
+            if char not in curr.children:
+                return False
+            curr = curr.children.get(char)
+        return curr.is_leaf
+
+    @lru_cache
+    def get_all_prefix_words(self, string):
+        result = []
+        curr = self
+        for idx, char in enumerate(string):
+            if curr.is_leaf:
+                result.append(string[:idx])
+            if char not in curr.children:
+                break
+            curr = curr.children[char]
+        return result
 
 
 def longest_word_trie(words: List[str]):

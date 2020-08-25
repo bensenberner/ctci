@@ -3,24 +3,19 @@ from typing import List
 
 
 def wordBreak(s: str, word_dict: List[str]) -> List[str]:
-    word_dict = set(word_dict)
-    if not s:
-        return []
+    word_set = set(word_dict)
 
-    @lru_cache(maxsize=None)
-    def _recur(start_idx, end_idx):
-        string = s[start_idx:end_idx]
-        sub_result = set()
-        if string in word_dict:
-            sub_result.add(string)
-        for partition_idx in range(start_idx + 1, end_idx):
-            all_left_parts = _recur(start_idx, partition_idx)
-            all_right_parts = _recur(partition_idx, end_idx)
-            for left_part in all_left_parts:
-                for right_part in all_right_parts:
-                    sub_result.add(left_part + " " + right_part)
-        return sub_result
+    @lru_cache(maxsize=len(s))
+    def dfs(start_idx):
+        result = []
+        if start_idx == len(s):
+            return result
+        if s[start_idx:] in word_set:
+            result.append(s[start_idx:])
+        for word in word_set:
+            if s[start_idx:].startswith(word):
+                suffixes = dfs(start_idx + len(word))
+                result.extend([f"{word} {suffix}" for suffix in suffixes])
+        return result
 
-    result = _recur(0, len(s))
-    print(_recur.cache_info())
-    return result
+    return dfs(0)

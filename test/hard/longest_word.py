@@ -1,6 +1,6 @@
 import unittest
 
-from hard.longest_word import longest_word
+from hard.longest_word import longest_word, TrieNode
 
 
 class Test(unittest.TestCase):
@@ -13,5 +13,7 @@ class Test(unittest.TestCase):
         self.assertEqual("", longest_word(words))
 
 
-if __name__ == "__main__":
-    unittest.main()
+class TestTrie(unittest.TestCase):
+    def test(self):
+        trie = TrieNode.create_from_words(["cat", "cats", "and", "sand", "dog"])
+        self.assertCountEqual(["cat", "cats"], trie.get_all_prefix_words("catsand"))
