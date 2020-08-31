@@ -35,7 +35,9 @@ class TrieNode:
         if char in self.children:
             return self.children[char]
         else:
-            string = self.string + char if self.string is not self.START_SYMBOL else char
+            string = (
+                self.string + char if self.string is not self.START_SYMBOL else char
+            )
             child_node = TrieNode(string=string)
             self.children[char] = child_node
             return child_node
@@ -118,7 +120,7 @@ def longest_word(words):
 
     for word in words:
         if len(word) > len(max_len_word) and is_composed_of_other_words(
-                word, performed_partition=False
+            word, performed_partition=False
         ):
             max_len_word = word
     return max_len_word
